@@ -17,26 +17,26 @@ namespace Battleship
 				int Row;
 				int Column;
 				
-				Console.WriteLine(" | 0 1 2 3 4 5 6 7 8 9");
-				Console.WriteLine("
-				for (Row = 0; Row <= 9; Row++);
+				Console.WriteLine("  | 0 1 2 3 4 5 6 7 8 9");
+				Console.WriteLine("----------------");
+				for (Row = 0; Row <= 9; Row++)
 				{
-					Console.Write((Row).toString() + " | ");
+					Console.Write((Row).ToString() + " | ");
 					for (Column = 0; Column <= 9; Column++)
 					{
-						Console.Write(BattleShipBoard[Column, Row] + " ");
+						Console.Write(Board[Column, Row] + " ");
 					}
 					Console.WriteLine();
 				}
-				Console.WriteLine("/n");
+				Console.WriteLine("\n");
 			}
 	}
 			
 	class Player
 	{
-		char[,] Grid = new.char[,][10,10];
+		char[,] Grid = new char[10, 10];
 		public int HitCount = 0;
-		public int MissCunt = 0;
+		public int MissCount = 0;
 		int x = 0;
 		int y = 0;
 		
@@ -48,7 +48,7 @@ namespace Battleship
 		
 		public int getMissCount()
 		{
-			return getMissCount;
+			return MissCount;
 		}
 		
 		public void AskCoordinates()
@@ -65,6 +65,19 @@ namespace Battleship
 		    {
 			    Console.WriteLine("Not an integer!");
 		    }
+		    
+		    Console.WriteLine("Enter y");
+			line = Console.ReadLine();
+			
+			if (int.TryParse(line, out value))
+			{
+				y = value;
+			}
+		    else
+		    {
+			    Console.WriteLine("Not an integer!");
+		    }
+		    
 		    try
 		    {
 		    	if (Grid[x,y].Equals('5'))
@@ -131,28 +144,29 @@ namespace Battleship
 	}
 		
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	class Program
 	{
 	
 	public static void Main(string[] args)
 		{
+			Console.Title = "Battleship!!"
+			Console.WriteLine("Welcome to battleship!\r\n\r\n");
+			Console.WriteLine("What is your name?");
+			string name = System.Console.ReadLine();
+			Console.WriteLine();
+			BattleShipBoard b = new BattleShipBoard();
+			Player p = new Player();
+			p.Randomize();
 			
+			while(p.getHitCount() < 17)
+			{
+				b.displayBoard(p.GetGrid());
+				p.AskCoordinates();
+			}
 			
-			
-			
-		
-		    
-		// TODO: Implement Functionality Here
+			Console.WriteLine("Congrats, " + name + "You Win!\r\n");
+			Console.WriteLine("You missed: " + p.getMissCount() + "times\r\n");
+			Console.WriteLine("Thanks for playing Battleship. Press enter to quit.");
 			
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
